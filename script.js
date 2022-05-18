@@ -1,70 +1,95 @@
 // Rock / Paper / Scissors game
 
-const initialPlayerSelection = "paper";             //TEMP -- hardcoded playerSelection value - need to set up input from user (HTML) 
-const playerSelection = capitalize(initialPlayerSelection);  //change user input to 'first letter in caps, the rest lowercase
-console.log(playerSelection);
+let initialPlayerSelection = '';
+let playerSelection = '';
+let computerSelection = '';
+let roundNum = 1;
+let playerScore = 0;
+let computerScore = 0;
+let tieCount = 0;
 
+alert("Let's play Rock, Paper, Scissors!");   // game intro
 
-
-
-
-function capitalize(initialPlayerSelection) {
-    return initialPlayerSelection.charAt(0).toUpperCase() + initialPlayerSelection.slice(1).toLowerCase();    
-}
-
-const computerSelection = computerPlay();     //function returns random result for the computer player
-console.log(computerSelection);
-
-function computerPlay(){   
-
-    let randomChoice = getRandomNum(3);   //request random number, either 0, 1, or 2
-    
-    if (randomChoice == 0) {      //using randomChoice value (0,1,or 2) to match corresponding string value
-        return ('Rock');                
-    } else {
-        if (randomChoice == 1) {
-            return ('Paper');                        
-        } else {
-            return ('Scissors');                            
-        }
-    }      
-}
-
-function getRandomNum(max) {        //passed function the number (3) from computerPlay(), will return random number (0, 1, or 2)
-    return Math.floor(Math.random() * max);    
-}
-
-playRound(playerSelection, computerSelection);
-
-function playRound(playerSelection, computerSelection){      //play a round using the player input and the random computerSelection 
-    //not checking here for invalid input for playerSelection.  Use images/buttons for options instead
-    let playerWins;
-
-    if (playerSelection == computerSelection) {
-        console.log('tie');
-        return ("It's a tie!  Try again.");            // TIE game
-    } else {
+while (roundNum <= 5) {      
         
-        console.log(playerWins);
-        console.log(playerSelection, computerSelection);   //check value before IF statement is run
-        if ((playerSelection == 'Rock' && computerSelection == 'Scissors') ||  
-            (playerSelection == 'Paper' && computerSelection == 'Rock')  ||
-            (playerSelection == 'Scissors' && computerSelection == 'Paper')) {  //check if player is the winner                
-            
-            playerWins = 'true';                
-        } 
-            console.log(playerWins);
+    playerSelection = playersChoice();       // get players choice
+    computerSelection = computerPlay();     // get computer random choice
+    console.log(playersChoice, computerSelection);
 
-        if (playerWins == 'true'){ 
-            console.log('winner');
-            return (`You Win! ${playerSelection} beats ${computerSelection}`);   //return if player wins               
+    playRound(playerSelection, computerSelection);  // play one round
+
+    // Player choice section ----------------
+    function playersChoice() {
+        initialPlayerSelection = prompt(`Round ${roundNum}:  Enter either Rock, Paper, or Scissors`);   //prompt user for their choice 
+        playerSelection = capitalize(initialPlayerSelection);  //change user input to 'first letter in caps, the rest lowercase
+        return playerSelection;
+    }
+
+    function capitalize(initialPlayerSelection) {   //sets first character toUpperCase() and the rest of the string toLowerCase()
+        return initialPlayerSelection.charAt(0).toUpperCase() + initialPlayerSelection.slice(1).toLowerCase();    
+    }
+
+    // Computer player section ------------------
+    function computerPlay(){   //get random value for the computer players turn
+
+        let randomChoice = getRandomNum(3);   //request random number, either 0, 1, or 2
+        
+        if (randomChoice == 0) {      //using randomChoice value (0,1,or 2) to match corresponding string value
+            return ('Rock');                
         } else {
-            console.log('loser');
-            return (`You Lose! ${computerSelection} beats ${playerSelection}`);  //return if computer wins            
-        }
-    }    
+            if (randomChoice == 1) {
+                return ('Paper');                        
+            } else {
+                return ('Scissors');                            
+            }
+        }      
+    }
+
+    function getRandomNum(max) {        //passed function the number (3) from computerPlay(), will return random number (0, 1, or 2)
+        return Math.floor(Math.random() * max);    
+    }
+
+    // play a round ----not checking here for invalid input from player.  Should use images/buttons for options instead
+    function playRound(playerSelection, computerSelection){      //play a round using the player's input and the random computerSelection 
+        
+        if (playerSelection == computerSelection) {                
+            tieCount++;         // will be used to show the number of rounds ending in a tie out of 5 rounds
+            return alert("It's a tie!");            // TIE game
+        } else {    
+                    //nothing to handle invalid user input - (i.e. they enter rocks, scessors, or plastic etc...they will lose)
+            if ((playerSelection == 'Rock' && computerSelection == 'Scissors') ||  
+                (playerSelection == 'Paper' && computerSelection == 'Rock')  ||
+                (playerSelection == 'Scissors' && computerSelection == 'Paper')) {  //check if player is the winner                
+                                
+                playerScore++;
+                return alert(`You Win this round! ${playerSelection} beats ${computerSelection}`);   //return if player wins                            
+            }  else {
+                computerScore++;
+                return alert(`You Lose this round! ${computerSelection} beats ${playerSelection}`);  //return if computer wins 
+            }                       
+        } 
+    }
+    
+    if (roundNum == 5) {    // show ending scores and tie count        
+        alert("The game is now over!");
+        alert(`Your Score: ${playerScore}, the Computer's Score: ${computerScore}, Tie Rounds: ${tieCount}`);
+        whoWon();
+    } 
+    
+    function whoWon() {
+        if (tieCount == 5){   // all 5 rounds ended in a tie
+                alert("Holy Cow! Five tie rounds in a row.  No winner.");
+            } else {
+                if (playerScore == computerScore) {
+                    alert("The game has ended in a tie! Good Game!")
+                } else {
+                    if (playerScore > computerScore) {
+                    alert("You are the Winner! Great job!");
+                    } else {
+                        alert("You lost the game to the computer. Better luck next time.");
+                    }
+                }
+            }
+    }
+    roundNum++;              // increase roundNum by one each round
 }
-
-
-
-
