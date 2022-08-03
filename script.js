@@ -1,5 +1,7 @@
 // Rock / Paper / Scissors game
 
+//console.dir(document);   //will display the entire DOM in the console window
+
 let initialPlayerSelection = '';
 let playerSelection = '';
 let computerSelection = '';
@@ -13,7 +15,7 @@ game();
 
 function game() {
     while (roundNum <= 5) {      
-            
+//TASK***for now - remove the logic that plays exactly five rounds ---------------------------------            
         playerSelection = playersChoice();       // get players choice
         computerSelection = computerPlay();     // get computer random choice
         console.log(playersChoice, computerSelection);
@@ -23,6 +25,7 @@ function game() {
         // Player choice section ----------------
         function playersChoice() {
             initialPlayerSelection = prompt(`Round ${roundNum}:  Enter either Rock, Paper, or Scissors`);   //prompt user for their choice 
+//TASK***NEW Code here for buttons vs text entry --------------------
             playerSelection = capitalize(initialPlayerSelection);  //change user input to 'first letter in caps, the rest lowercase
             return playerSelection;
         }
@@ -96,4 +99,5 @@ function game() {
         roundNum++;              // increase roundNum by one each round
     }
 }
+console.log('hello');
 
