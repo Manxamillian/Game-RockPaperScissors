@@ -1,21 +1,32 @@
+html {
+    text-align: center;
+    padding-top: 1em;
+}
+
 .body, .mainContainer{
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center; 
-    background-color: pink;
+    background-color:  rgb(194, 223, 194);
     padding: 15px;
 }
 
 .mainContainer {     
-    background-color: purple;
+    background-color: black;
     
 }
 
 
 .playArea {
+    background-color:  rgb(194, 223, 194);
     width: 800px;
     height: 600px;
+    padding: 1em 1.2em;
+    border-radius: .3em;
+    border: none;
+    border-bottom: 4px solid black;
+    border-left: 3px solid black; 
     
 }
 
@@ -24,14 +35,19 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.mainContainer button {     
-    width: 150px;
+.mainContainer .btn {     
+    width: 200px;
     height: 75px;
-    background-color: yellow;
-    border-color: green;
-    border: 2px;
-    color: blue;
-    font-size: 20px;    
+    background-color: rgb(252, 211, 29);    
+    color: black;
+    font-size: 22px;
+    text-align: center; 
+    padding: 1em 1.2em;
+    border-radius: .3em;
+    border: none;
+    border-bottom: 4px solid red;
+    border-left: 3px solid orange;   
 
 }
+
 
